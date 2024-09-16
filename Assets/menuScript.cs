@@ -5,6 +5,16 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
     public string playerTag = "Player";
+    public AudioClip gameSuccessClip; // Assign in inspector
+    public AudioClip gameOverClip;    // Assign in inspector
+
+    private AudioSource audioSource;
+
+    private void Start()
+    {
+        // Initialize AudioSource component
+        audioSource = GetComponent<AudioSource>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -44,30 +54,60 @@ public class MenuManager : MonoBehaviour
         LoadScene(nextLevelSceneName);
     }
 
-public void RestartGame()
-{
-    Debug.Log("Restart Game button clicked"); // Debug message
-
-    // Unload GameOver scene if it is loaded
-    if (SceneManager.GetSceneByName("GameOver").isLoaded)
+    public void RestartGame()
     {
-        SceneManager.UnloadSceneAsync("GameOver");
+        Debug.Log("Restart Game button clicked"); // Debug message
+
+        // Unload GameOver scene if it is loaded
+        if (SceneManager.GetSceneByName("GameOver").isLoaded)
+        {
+            SceneManager.UnloadSceneAsync("GameOver");
+        }
+
+        // Load the Start Game scene
+        LoadScene("StartGame");
     }
 
-    // Load the Start Game scene
-    LoadScene("StartGame");
-}
+    private void LoadScene(string sceneName)
+    {
+        Debug.Log($"Loading scene: {sceneName}"); // Debug message
+        SceneManager.LoadScene(sceneName);
+        // Call method to play scene-specific sound after scene is loaded
+        StartCoroutine(PlaySceneSound(sceneName));
+    }
 
-private void LoadScene(string sceneName)
-{
-    Debug.Log($"Loading scene: {sceneName}"); // Debug message
-    SceneManager.LoadScene(sceneName);
-}
+    private IEnumerator PlaySceneSound(string sceneName)
+    {
+        // Wait a frame to ensure scene is fully loaded
+        yield return null;
+
+        if (audioSource != null)
+        {
+            if (sceneName == "GameSuccess")
+            {
+                audioSource.clip = gameSuccessClip;
+            }
+            else if (sceneName == "GameOver")
+            {
+                audioSource.clip = gameOverClip;
+            }
+
+            // Play the sound if a valid clip is assigned
+            if (audioSource.clip != null)
+            {
+                audioSource.Play();
+            }
+        }
+        else
+        {
+            Debug.LogWarning("No AudioSource component found on this GameObject.");
+        }
+    }
 
     public void ExitGame()
     {
         Application.Quit();
-        #if UNITY_EDgitITOR
+        #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
         #endif
     }

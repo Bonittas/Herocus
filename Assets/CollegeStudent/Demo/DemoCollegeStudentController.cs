@@ -1,63 +1,88 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI; // Add this for UI text
 
 namespace ClearSky
 {
-public class DemoCollegeStudentController : MonoBehaviour
-{
-    public float movePower = 10f;
-    public float KickBoardMovePower = 15f;
-    public float jumpPower = 8f;
-    public bool autoRun = true;
-
-    private Rigidbody2D rb;
-    private Animator anim;
-    private PlayerHealth playerHealth;
-    private int direction = 1;
-    private bool isJumping = false;
-    private bool alive = true;
-    private bool isKickboard = false;
-    private int totalCoins = 0; // To keep track of collected coins
-
-    void Start()
+    public class DemoCollegeStudentController : MonoBehaviour
     {
-        rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
-        playerHealth = GetComponent<PlayerHealth>();
+        public float movePower = 10f;
+        public float KickBoardMovePower = 15f;
+        public float jumpPower = 8f;
+        public bool autoRun = true;
 
-        if (autoRun)
-        {
-            direction = 1;
-        }
-    }
+        private Rigidbody2D rb;
+        private Animator anim;
+        private PlayerHealth playerHealth;
+        private int direction = 1;
+        private bool isJumping = false;
+        private bool alive = true;
+        private bool isKickboard = false;
+        private int totalCoins = 0; // To keep track of collected coins
 
-    private void Update()
-    {
-        if (playerHealth.GetCurrentHealth() > 0 && alive)
-        {
-            Restart();
-            Hurt();
-            Die();
-            Attack();
-            Jump();
-            KickBoard();
-            Run();
-        }
-    }
+        // Sound effects
+        public AudioClip coinSound; // Add the coin sound clip
+        public AudioClip runSound;  // Add the run sound clip
+        private AudioSource audioSource; // AudioSource to play sounds
 
-    // When player touches a coin
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Coin")) // Make sure the coin prefab has the tag "Coin"
+        // UI Elements
+        public Text coinCounterText; // Reference to the UI Text element
+
+        void Start()
         {
-            totalCoins++; // Increase the coin counter
-            Destroy(other.gameObject); // Make the coin disappear
-            Debug.Log("Coins collected: " + totalCoins);
+            rb = GetComponent<Rigidbody2D>();
+            anim = GetComponent<Animator>();
+            playerHealth = GetComponent<PlayerHealth>();
+
+            audioSource = GetComponent<AudioSource>(); // Initialize AudioSource
+
+            if (audioSource == null)
+            {
+                Debug.LogError("No AudioSource attached to the player. Please attach one.");
+            }
+
+            if (autoRun)
+            {
+                direction = 1;
+            }
+
+            // Initialize coin counter display
+            UpdateCoinCounterText();
         }
 
-        anim.SetBool("isJump", false);
-    }
+        private void Update()
+        {
+            if (playerHealth.GetCurrentHealth() > 0 && alive)
+            {
+                Restart();
+                Hurt();
+                Die();
+                Attack();
+                Jump();
+                KickBoard();
+                Run();  // Ensure Run is being called in Update
+            }
+        }
+
+        // When player touches a coin
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.CompareTag("Coin")) // Make sure the coin prefab has the tag "Coin"
+            {
+                totalCoins++; // Increase the coin counter
+                Destroy(other.gameObject); // Make the coin disappear
+                Debug.Log("Coins collected: " + totalCoins);
+
+                // Update coin counter display
+                UpdateCoinCounterText();
+
+                // Play coin collection sound
+                PlaySound(coinSound);
+            }
+
+            anim.SetBool("isJump", false);
+        }
 
         void KickBoard()
         {
@@ -101,9 +126,25 @@ public class DemoCollegeStudentController : MonoBehaviour
                 }
 
                 transform.localScale = new Vector3(direction, 1, 1);
+
+                // Check if the player is running (not jumping)
                 if (!anim.GetBool("isJump"))
+                {
                     anim.SetBool("isRun", true);
-                
+
+                    // Play run sound if not already playing
+                    if (!audioSource.isPlaying)
+                    {
+                        PlaySound(runSound, true); // Loop run sound while running
+                    }
+                }
+                else
+                {
+                    // Stop run sound when jumping
+                    audioSource.Stop();
+                }
+
+                // Apply movement
                 transform.position += moveVelocity * movePower * Time.deltaTime;
             }
 
@@ -121,32 +162,34 @@ public class DemoCollegeStudentController : MonoBehaviour
                     moveVelocity = Vector3.right;
                 }
                 transform.position += moveVelocity * KickBoardMovePower * Time.deltaTime;
+
+                // Stop running sound when on the kickboard
+                audioSource.Stop();
             }
         }
 
-void Jump()
-{
-    if ((Input.GetButtonDown("Jump") || Input.GetAxisRaw("Vertical") > 0) && !anim.GetBool("isJump"))
-    {
-        isJumping = true;
-        anim.SetBool("isJump", true);
-    }
+        void Jump()
+        {
+            if ((Input.GetButtonDown("Jump") || Input.GetAxisRaw("Vertical") > 0) && !anim.GetBool("isJump"))
+            {
+                isJumping = true;
+                anim.SetBool("isJump", true);
+            }
     
-    if (isJumping)
-    {
-        // Adjust gravity scale for a more controlled jump and fall
-        rb.gravityScale = 3f; // Increase this value if the fall is still too slow
+            if (isJumping)
+            {
+                // Adjust gravity scale for a more controlled jump and fall
+                rb.gravityScale = 3f; // Increase this value if the fall is still too slow
 
-        // Clear previous velocity
-        rb.velocity = new Vector2(rb.velocity.x, 0);
+                // Clear previous velocity
+                rb.velocity = new Vector2(rb.velocity.x, 0);
 
-        // Apply jump force
-        rb.AddForce(new Vector2(0, jumpPower), ForceMode2D.Impulse);
+                // Apply jump force
+                rb.AddForce(new Vector2(0, jumpPower), ForceMode2D.Impulse);
         
-        isJumping = false;
-    }
-}
-
+                isJumping = false;
+            }
+        }
 
         void Attack()
         {
@@ -187,6 +230,30 @@ void Jump()
                 anim.SetBool("isKickBoard", false);
                 anim.SetTrigger("idle");
                 alive = true;
+            }
+        }
+
+        // Helper method to play sounds
+        private void PlaySound(AudioClip clip, bool loop = false)
+        {
+            if (clip != null && audioSource != null)
+            {
+                audioSource.clip = clip;
+                audioSource.loop = loop;
+                audioSource.Play();
+            }
+        }
+
+        // Method to update the coin counter text
+        private void UpdateCoinCounterText()
+        {
+            if (coinCounterText != null)
+            {
+                coinCounterText.text = "Coins: " + totalCoins;
+            }
+            else
+            {
+                Debug.LogWarning("CoinCounterText is not assigned.");
             }
         }
     }

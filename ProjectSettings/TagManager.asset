@@ -7,6 +7,8 @@ TagManager:
   - Ground
   - coin
   - Coin
+  - Checkpoint2
+  - Checkpoint1
   layers:
   - Default
   - TransparentFX
@@ -15,7 +17,7 @@ TagManager:
   - Water
   - UI
   - Player
-  - 
+  - Checkpoint1
   - 
   - 
   - 
