@@ -4,5 +4,26 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/StartGame.unity
+    guid: acdfa3f9b934838898cdf6ada446f6ac
+  - enabled: 1
+    path: Assets/MainMenu.unity
+    guid: 46255cd129b50e277902ff957a7fe8d1
+  - enabled: 1
+    path: Assets/GameOver.unity
+    guid: 713d9de54c37280b7beb41a450ec50a0
+  - enabled: 1
+    path: Assets/GameSuccess.unity
+    guid: 79ac40ddec0955119908d287c35acbdb
+  - enabled: 1
+    path: Assets/Level2.unity
+    guid: 7a6eab2aa0beecab9a7739b4d3a6e9fd
+  - enabled: 0
+    path: Assets/LiteFireEffect/Scene/Demo_FireBase.unity
+    guid: 2b0986e1d8c6c1e4382c83d2b3c3a679
+  - enabled: 1
+    path: Assets/LiteFireEffect/Scene/Demo_FireSkill.unity
+    guid: b6f8ad00f7d3f7747b7f45ef68d5f5c8
   m_configObjects: {}
