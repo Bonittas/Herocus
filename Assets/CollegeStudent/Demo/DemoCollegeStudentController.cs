@@ -68,17 +68,15 @@ namespace ClearSky
         // When player touches a coin
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag("Coin")) // Make sure the coin prefab has the tag "Coin"
+            if (other.CompareTag("Coin"))
             {
                 totalCoins++; // Increase the coin counter
                 Destroy(other.gameObject); // Make the coin disappear
-                Debug.Log("Coins collected: " + totalCoins);
-
-                // Update coin counter display
                 UpdateCoinCounterText();
-
-                // Play coin collection sound
                 PlaySound(coinSound);
+
+                // Save the total coins to PlayerPrefs before switching scenes
+                PlayerPrefs.SetInt("TotalCoins", totalCoins);
             }
 
             anim.SetBool("isJump", false);
@@ -249,12 +247,18 @@ namespace ClearSky
         {
             if (coinCounterText != null)
             {
-                coinCounterText.text = "Coins: " + totalCoins;
+                coinCounterText.text = "Coins:   " + totalCoins;
             }
             else
             {
                 Debug.LogWarning("CoinCounterText is not assigned.");
             }
+        }
+
+        // Method to return the total number of coins collected
+        public int GetTotalCoins()
+        {
+            return totalCoins;
         }
     }
 }
