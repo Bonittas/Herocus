@@ -39,6 +39,14 @@ public class MenuManager : MonoBehaviour
         PlayerPrefs.SetInt("TotalCoins", FindObjectOfType<ClearSky.DemoCollegeStudentController>().GetTotalCoins());
         LoadScene("GameSuccess");
     }
+        private IEnumerator LoadSuccessScene2()
+    {
+        yield return new WaitForSeconds(1f); // Wait for 1 second
+        // Save the total coins using PlayerPrefs
+        PlayerPrefs.SetInt("TotalCoins", FindObjectOfType<ClearSky.DemoCollegeStudentController>().GetTotalCoins());
+        LoadScene("GameSuccess");
+    }
+
 
     public void StartGame()
     {

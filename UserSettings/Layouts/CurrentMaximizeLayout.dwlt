@@ -216,9 +216,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
+      m_SelectedIDs: 04a90000
       m_LastClickedID: 0
-      m_ExpandedIDs: e8faffff
+      m_ExpandedIDs: 02e7ffffd0e8fffff2a600007aa90000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -801,8 +801,8 @@ MonoBehaviour:
     y: 0
     width: 486
     height: 327
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 9}
   m_Panes:
   - {fileID: 9}
@@ -879,7 +879,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 114
+  controlID: 332
   draggingID: 0
 --- !u!114 &11
 MonoBehaviour:
@@ -891,7 +891,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ConsoleWindow
+  m_Name: ProjectBrowser
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -900,14 +900,14 @@ MonoBehaviour:
     y: 0
     width: 734
     height: 392
-  m_MinSize: {x: 101, y: 121}
-  m_MaxSize: {x: 4001, y: 4021}
-  m_ActualView: {fileID: 13}
+  m_MinSize: {x: 231, y: 271}
+  m_MaxSize: {x: 10001, y: 10021}
+  m_ActualView: {fileID: 12}
   m_Panes:
   - {fileID: 12}
   - {fileID: 13}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -943,7 +943,7 @@ MonoBehaviour:
     m_SaveData: []
     m_OverlaysVisible: 1
   m_SearchFilter:
-    m_NameFilter: 
+    m_NameFilter: start
     m_ClassNames: []
     m_AssetLabels: []
     m_AssetBundleNames: []
@@ -955,7 +955,7 @@ MonoBehaviour:
     m_Folders:
     - Assets/Brutal 2D Adventure Mega Pack/Brutal 2D Adventure Jungle Pack/sunset/backgrounds
     m_Globs: []
-    m_OriginalText: 
+    m_OriginalText: start
     m_ImportLogFlags: 0
     m_FilterByTypeIntersection: 0
   m_ViewMode: 1
@@ -968,9 +968,9 @@ MonoBehaviour:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 61}
-    m_SelectedIDs: 10910000
-    m_LastClickedID: 37136
-    m_ExpandedIDs: 00000000348500003685000038850000
+    m_SelectedIDs: 6ea60000
+    m_LastClickedID: 42606
+    m_ExpandedIDs: 0000000034850000368500003885000044a6000070a6000072a6000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1023,24 +1023,24 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 6a0f0400
-    m_LastClickedInstanceID: 266090
+    m_SelectedInstanceIDs: 04a90000
+    m_LastClickedInstanceID: 43268
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000ee7b000058790000f07b0000f27b0000e27b0000f47b0000fc7b0000e47b0000f67b0000e67b0000e87b0000f87b0000ea7b0000ec7b0000fa7b0000127f0000167f00001a7f00001e7f0000227f00002a7f0000a8b4000036b40000eab300005cb40000aeb30000947700000478000070770000c07700006c770000a4770000e0770000a0770000d877000078770000b4770000a8770000d07700007c77000084770000d4770000f877000088770000cc770000dc770000fc770000907700000878000000780000b877000074770000f0770000b07700009c770000e477000012770000bc770000c8770000ac7700009877000068770000e8770000f4770000ec770000c4770000807700002e9b0000429b0000de9a0000ea9a0000369b00001e9b0000ee9a0000d69a0000469b0000229b0000b29a00004a9b0000c69a00000e9b0000f29a0000f69a0000d29a0000ae9a0000269b0000329b00004e9b00003a9b0000e69a0000e29a00003e9b0000fe9a0000c29a0000169b0000b69a00002a9b0000fa9a00000a9b0000069b0000029b0000ca9a0000129b0000aa9a0000ba9a00001a9b0000be9a0000ce9a0000da9a00005a9b0000549b00006a7d00006e7d0000727d0000767d00007a7d00007e7d0000827d0000867d0000fc7c0000007d0000047d0000087d00000c7d0000107d0000f87c0000a87e0000a27e0000a67e0000007f0000a47e0000ac7e0000fa7e0000aa7e00005e930000d2870000ae7e0000b07e0000b47e0000eea50000b27e0000829400006a9400002a8b000044900000889c000094720100749e0100ce6c0000000000003e8600005e8c0000acb40000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: StartGame
+      m_OriginalName: StartGame
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 43268
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 11}
     m_CreateAssetUtility:
